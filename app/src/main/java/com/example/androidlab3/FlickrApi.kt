@@ -1,26 +1,27 @@
 package com.example.androidlab3
-import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import com.google.gson.FieldNamingPolicy
+import com.google.gson.GsonBuilder
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Response
 import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.jaxb.JaxbConverterFactory
 import retrofit2.http.GET
+import java.util.concurrent.TimeUnit
 
+private const val BASE_URL = "https://www.flickr.com/services/feeds/"
 interface FlickrApi {
-    @GET("photos_public.gne?format=json&nojsoncallback=1")
-    suspend fun getPublicPhotos(): Response<List<Photo>>
+    @GET("photos_public.gne")
+    suspend fun getPublicPhotos(): List<Photo>
 }
 
-class FlickrRepository {
-    private val flickrApi: FlickrApi by lazy {
+object WebClient {
+    val client: FlickrApi by lazy {
         Retrofit.Builder()
-            .baseUrl("https://www.flickr.com/services/feeds/")
-            .addConverterFactory(MoshiConverterFactory.create())
-            .addCallAdapterFactory(CoroutineCallAdapterFactory())
+            .baseUrl(BASE_URL)
+            .addConverterFactory(JaxbConverterFactory.create())
             .build()
             .create(FlickrApi::class.java)
-    }
-
-    suspend fun getPublicPhotos(): Response<List<Photo>> {
-        return flickrApi.getPublicPhotos()
     }
 }

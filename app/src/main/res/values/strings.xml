@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">AndroidLab3</string>
+    <string name="flickr_key">62b387c606ac1072378646bbf0ea5a3b</string>
 </resources>
