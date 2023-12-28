@@ -17,11 +17,14 @@ class GalleryViewModel : ViewModel() {
     init {
         viewModelScope.launch {
             try {
-                _galleryState.value =GalleryState(WebClient.client.getPublicPhotos())
+                val response = WebClient.client.getPublicPhotos()
+                _galleryState.value = GalleryState(response.items)
+                Log.d("GalleryViewModel", "Number of photos: ${_galleryState.value.photos.size}")
             } catch (e: Exception) {
-                Log.d("BBBB", e.toString())
+                Log.d("GalleryViewModel", "Error: ${e.message}")
                 e.printStackTrace()
             }
         }
+
     }
 }

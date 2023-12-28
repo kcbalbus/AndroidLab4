@@ -17,7 +17,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             AndroidLab3Theme {
-                GalleryScreen()
+                GalleryApp()
             }
         }
     }

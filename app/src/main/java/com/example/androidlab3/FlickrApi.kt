@@ -6,21 +6,26 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.converter.jaxb.JaxbConverterFactory
 import retrofit2.http.GET
 import java.util.concurrent.TimeUnit
+import com.google.gson.Gson
 
 private const val BASE_URL = "https://www.flickr.com/services/feeds/"
 interface FlickrApi {
-    @GET("photos_public.gne")
-    suspend fun getPublicPhotos(): List<Photo>
+    @GET("photos_public.gne?format=json&nojsoncallback=1")
+    suspend fun getPublicPhotos(): FlickrResponse
 }
 
 object WebClient {
     val client: FlickrApi by lazy {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
-            .addConverterFactory(JaxbConverterFactory.create())
+            .addConverterFactory(
+                GsonConverterFactory.create(
+                    GsonBuilder()
+                        .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                        .create()
+                ))
             .build()
             .create(FlickrApi::class.java)
     }
