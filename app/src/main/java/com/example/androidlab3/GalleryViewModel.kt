@@ -8,6 +8,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class GalleryViewModel : ViewModel() {
@@ -27,4 +28,15 @@ class GalleryViewModel : ViewModel() {
         }
 
     }
+
+    fun onPhotoChosen(photo: Photo){
+        _galleryState.update { currentState ->
+            currentState.copy(
+                currentPhoto = photo
+            )
+        }
+
+    }
+
+    //TODO fix response format
 }

@@ -30,7 +30,8 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 
 enum class AppScreen(@StringRes val title: Int) {
-    Gallery(title = R.string.gallery_name),
+    FlickrGallery(title = R.string.gallery_name),
+    FlickrPhoto(title = R.string.photo_name)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -70,10 +71,10 @@ fun GalleryApp(
 ) {
     val backStackEntry by navController.currentBackStackEntryAsState()
     val currentScreen = AppScreen.valueOf(
-        backStackEntry?.destination?.route ?: AppScreen.Gallery.name
+        backStackEntry?.destination?.route ?: AppScreen.FlickrGallery.name
     )
 
-    val topBarTitle = "Galeria"
+    val topBarTitle = "Flickr - Galeria"
 
     Scaffold(
         topBar = {
@@ -89,11 +90,14 @@ fun GalleryApp(
 
         NavHost(
             navController = navController,
-            startDestination = AppScreen.Gallery.name,
+            startDestination = AppScreen.FlickrGallery.name,
             modifier = Modifier.padding(innerPadding)
         ) {
-            composable(route = AppScreen.Gallery.name) {
-                GalleryScreen(galleryViewModel, galleryState)
+            composable(route = AppScreen.FlickrGallery.name) {
+                GalleryScreen(galleryViewModel, galleryState, {navController.navigate(AppScreen.FlickrPhoto.name)})
+            }
+            composable(route = AppScreen.FlickrPhoto.name) {
+                PhotoScreen(galleryViewModel, galleryState)
             }
         }
     }

@@ -16,6 +16,8 @@ interface FlickrApi {
     suspend fun getPublicPhotos(): FlickrResponse
 }
 
+//TODO tag search
+
 object WebClient {
     val client: FlickrApi by lazy {
         Retrofit.Builder()
