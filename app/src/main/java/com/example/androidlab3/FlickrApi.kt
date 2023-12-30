@@ -9,14 +9,17 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import java.util.concurrent.TimeUnit
 import com.google.gson.Gson
+import retrofit2.http.Query
 
 private const val BASE_URL = "https://www.flickr.com/services/feeds/"
 interface FlickrApi {
     @GET("photos_public.gne?format=json&nojsoncallback=1")
     suspend fun getPublicPhotos(): FlickrResponse
+
+    @GET("photos_public.gne?format=json&nojsoncallback=1")
+    suspend fun getTagPhotos(@Query("tags") tag: String): FlickrResponse
 }
 
-//TODO tag search
 
 object WebClient {
     val client: FlickrApi by lazy {

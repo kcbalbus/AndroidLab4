@@ -18,8 +18,8 @@ data class Photo(
     val media: Media,
     val dateTaken: String,
     val description: String,
-    val published: String,
-    val author: String,
+    var published: String,
+    var author: String,
     val authorId: String,
     val tags: String
 )

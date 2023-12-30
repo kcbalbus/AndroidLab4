@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AndroidLab3</string>
+    <string name="app_name">Flickr-Galeria</string>
     <string name="gallery_name">Galeria</string>
     <string name="back_button">Powrót</string>
     <string name="photo_name">Wybrane zdjęcie</string>

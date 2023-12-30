@@ -82,7 +82,7 @@ fun GalleryApp(
                 currentScreen = currentScreen,
                 canNavigateBack = navController.previousBackStackEntry != null,
                 navigateUp = { navController.navigateUp() },
-                topBarTitle
+                topBarTitle,
             )
         }
     ) { innerPadding ->
